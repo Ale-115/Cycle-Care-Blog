@@ -186,7 +186,6 @@ app.get('/admin/delete/:id', (req, res) => {
   });
 });
 
-// ─── Start Server ─────────────────────────────────────────────────────────────
 app.listen(3000, () => {
   console.log('Cycle Care Blog running on http://localhost:3000');
 });
