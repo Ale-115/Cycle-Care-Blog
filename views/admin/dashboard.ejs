@@ -1,0 +1,39 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/nav') %>
+
+<main class="main-content">
+  <div class="dashboard-header">
+    <h2>Admin Dashboard</h2>
+    <a href="/admin/new" class="btn-new">+ New Post</a>
+  </div>
+
+  <% if (posts.length === 0) { %>
+    <p class="empty-msg">No posts yet. <a href="/admin/new">Create your first post.</a></p>
+  <% } else { %>
+    <table class="posts-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Slug</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% posts.forEach(function(post) { %>
+          <tr>
+            <td><a href="/post/<%= post.slug %>"><%= post.title %></a></td>
+            <td><code>/post/<%= post.slug %></code></td>
+            <td><%= post.createdAt.toDateString() %></td>
+            <td class="actions">
+              <a href="/admin/edit/<%= post._id %>" class="btn-edit">Edit</a>
+              <a href="/admin/delete/<%= post._id %>" class="btn-delete" onclick="return confirm('Delete this post?')">Delete</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</main>
+
+<%- include('../layouts/footer') %>

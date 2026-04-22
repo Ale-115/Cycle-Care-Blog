@@ -1,0 +1,11 @@
+<nav class="site-nav">
+  <ul>
+    <li><a href="/">Blog</a></li>
+
+    <% if (typeof(navPosts) != 'undefined') { %>
+      <% navPosts.forEach(function(p) { %>
+        <li><a href="/post/<%= p.slug %>"><%= p.title %></a></li>
+      <% }); %>
+    <% } %>
+  </ul>
+</nav>

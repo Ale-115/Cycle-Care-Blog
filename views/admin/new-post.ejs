@@ -1,0 +1,56 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/nav') %>
+
+<main class="main-content">
+  <div class="admin-form-wrap wide">
+    <h2>Create New Post</h2>
+
+    <% if (typeof(error) != 'undefined' && error) { %>
+      <p class="form-error"><%= error %></p>
+    <% } %>
+
+    <form action="/admin/new" method="POST" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <label for="title">Post Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter post title" />
+      </div>
+
+      <div class="form-group">
+        <label for="slug">Slug (URL)</label>
+        <input type="text" id="slug" name="slug" placeholder="e.g. my-first-post" />
+        <small>Used in the URL: /post/<span id="slug-preview">my-first-post</span></small>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Featured Image</label>
+        <input type="file" id="image" name="image" accept="image/*" />
+      </div>
+
+      <div class="form-group">
+        <label>Content</label>
+        <div class="editor-toolbar">
+          <button type="button" onclick="execCmd('bold')"><b>B</b></button>
+          <button type="button" onclick="execCmd('italic')"><i>I</i></button>
+          <button type="button" onclick="execCmd('underline')"><u>U</u></button>
+          <button type="button" onclick="execCmd('insertUnorderedList')">&#8226; List</button>
+          <button type="button" onclick="execCmd('insertOrderedList')">1. List</button>
+          <button type="button" onclick="execCmd('formatBlock', 'h2')">H2</button>
+          <button type="button" onclick="execCmd('formatBlock', 'p')">P</button>
+        </div>
+        <div id="editor" class="wysiwyg-editor" contenteditable="true"></div>
+        <textarea id="content" name="content" style="display:none;"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <input type="submit" value="Publish Post" class="btn-submit" />
+        <a href="/admin/dashboard" class="btn-cancel">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<script src="/js/editor.js"></script>
+
+<%- include('../layouts/footer') %>

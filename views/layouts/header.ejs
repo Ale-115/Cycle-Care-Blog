@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cycle Care Blog</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <a href="/" class="header-logo-link">
+      <img src="/cycle_care-logo.svg" alt="Cycle Care Logo" class="header-logo" />
+    </a>
+
+    <div class="header-text">
+      <p class="site-tagline">Stories, care &amp; the road ahead</p>
+    </div>
+
+    <!-- admin and login -->
+    <div class="header-actions">
+      <% if (typeof(loggedIn) != 'undefined' && loggedIn) { %>
+        <a href="/admin/dashboard">Admin</a>
+        <a href="/admin/logout">Logout</a>
+      <% } else { %>
+        <a href="/admin/login">Admin</a>
+      <% } %>
+    </div>
+
+  </div>
+</header>

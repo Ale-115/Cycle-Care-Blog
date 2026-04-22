@@ -1,0 +1,36 @@
+<%- include('layouts/header') %>
+<%- include('layouts/nav') %>
+
+<main class="main-content">
+
+  <% if (posts.length === 0) { %>
+    <div class="empty-state">
+      <h2>Welcome to Cycle Care Blog</h2>
+      <p>No posts yet. Check back soon, or <a href="/admin/login">log in</a> to create your first post.</p>
+    </div>
+  <% } else { %>
+
+    <div class="post-grid">
+      <% posts.forEach(function(post) { %>
+        <article class="post-card">
+          <% if (post.image) { %>
+            <a href="/post/<%= post.slug %>">
+              <img src="<%= post.image %>" alt="<%= post.title %>" class="post-card-img" />
+            </a>
+          <% } %>
+          <div class="post-card-body">
+            <h2 class="post-card-title">
+              <a href="/post/<%= post.slug %>"><%= post.title %></a>
+            </h2>
+            <p class="post-card-date"><%= post.createdAt.toDateString() %></p>
+            <a href="/post/<%= post.slug %>" class="read-more">Read more &rarr;</a>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+
+  <% } %>
+
+</main>
+
+<%- include('layouts/footer') %>
