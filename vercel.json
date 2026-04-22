@@ -4,6 +4,9 @@
     { "src": "app.js", "use": "@vercel/node" }
   ],
   "routes": [
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/cycle_care-logo.svg", "dest": "/public/cycle_care-logo.svg" },
     { "src": "/(.*)", "dest": "app.js" }
   ]
 }

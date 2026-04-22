@@ -3,7 +3,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const multer = require('multer');
-const fs = require('fs');
 
 const Post = require('./models/Post');
 
@@ -12,17 +11,7 @@ const app = express();
 mongoose.connect('mongodb+srv://thisisbyale_db:ale115@cluster0.ajryb9e.mongodb.net/cyclecareblog?appName=Cluster0');
 
 // ─── Multer — Image Upload ────────────────────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'public/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const name = Date.now() + ext;
-    cb(null, name);
-  }
-});
-const upload = multer({ storage: storage });
+const upload = multer({ storage: multer.memoryStorage() });
 
 // ─── App Settings ─────────────────────────────────────────────────────────────
 app.use(express.urlencoded({ extended: false }));
@@ -120,7 +109,9 @@ app.post('/admin/new', upload.single('image'), (req, res) => {
   var title   = req.body.title;
   var slug    = req.body.slug;
   var content = req.body.content;
-  var image   = req.file ? '/uploads/' + req.file.filename : '';
+  var image   = req.file
+    ? 'data:' + req.file.mimetype + ';base64,' + req.file.buffer.toString('base64')
+    : '';
 
   if (!title || !slug) {
     return res.render('admin/new-post', { error: 'Title and slug are required.' });
@@ -172,7 +163,7 @@ app.post('/admin/edit/:id', upload.single('image'), (req, res) => {
     post.slug    = slug;
     post.content = content;
     if (req.file) {
-      post.image = '/uploads/' + req.file.filename;
+      post.image = 'data:' + req.file.mimetype + ';base64,' + req.file.buffer.toString('base64');
     }
     return post.save();
   }).then(() => {
